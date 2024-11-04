@@ -1,12 +1,14 @@
 import pygame
 from constants import * 
+from circleshape import *
+from player import *
 
 def main():
     pygame.init()
-
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
     dt = 0
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     
     
     while True:
@@ -14,12 +16,12 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        pygame.Surface.fill(screen, color=000)
+        screen.fill("black")
         pygame.display.flip()
+        player.draw(screen)
 
-        clock.tick(60)
+        #limit the framerate to 60 FPS
         dt = clock.tick(60) / 1000
-        print(dt)
         
 
 
