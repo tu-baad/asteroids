@@ -1,27 +1,7 @@
 
-import pygame
 from constants import *
+from circleshape import *
 
-# Base class for game objects
-class CircleShape(pygame.sprite.Sprite):
-    def __init__(self, x, y, radius):
-        # we will be using this later
-        if hasattr(self, "containers"):
-            super().__init__(self.containers)
-        else:
-            super().__init__()
-
-        self.position = pygame.Vector2(x, y)
-        self.velocity = pygame.Vector2(0, 0)
-        self.radius = radius
-
-    def draw(self, screen):
-        # sub-classes must override
-        pass
-
-    def update(self, dt):
-        # sub-classes must override
-        pass
 
 class Player(CircleShape):
     def __init__(self, x, y):
@@ -50,7 +30,16 @@ class Player(CircleShape):
             
         if keys[pygame.K_d]:
             self.rotate(dt)
-            
+
+        if keys[pygame.K_w]:
+            self.move(dt)
+        
+        if keys[pygame.K_s]:
+            self.move(-dt)
+    
+    def move(self, dt):
+        forward = pygame.Vector2(0, 1).rotate(self.rotation)
+        self.position += forward * PLAYER_SPEED * dt
 
 
 
